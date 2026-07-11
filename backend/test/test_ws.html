@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h3>Telemetry stream</h3>
+    <pre id="log"></pre>
+    <script>
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws/telemetry");
+        ws.onmessage = (event) => {
+            document.getElementById("log").textContent =
+                event.data + "\n" + document.getElementById("log").textContent;
+        };
+        ws.onopen = () => console.log("connected");
+        ws.onclose = () => console.log("closed");
+    </script>
+</body>
+
+</html>
