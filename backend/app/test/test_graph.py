@@ -1,7 +1,7 @@
-from app.agents.toy_graph import build_graph
+import app.agents.toy_graph
 
 
-app_graph = build_graph()
+app_graph = app.agents.toy_graph.build_graph()
 
 for test_pressure in [0.2, 0.6, 0.96]:
     result = app_graph.invoke({
