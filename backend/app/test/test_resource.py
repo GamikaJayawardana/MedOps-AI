@@ -2,7 +2,7 @@ from app.agents.resource import resource_agent
 
 situation = (
     "The respiratory ward is at 100% occupancy with 0 beds free and patients "
-    "still arriving. We may need more ventilators and somewhere to move patients."
+    "still arriving. What does policy say we should do, and can we do it?"
 )
 
 print("=== SITUATION ===")

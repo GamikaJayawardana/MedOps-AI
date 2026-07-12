@@ -1,4 +1,4 @@
-from pinecone_text.sparse import BM25Encoder 
+from pinecone_text.sparse import BM25Encoder # type: ignore
 
 from app.rag.ingest import load_sops
 

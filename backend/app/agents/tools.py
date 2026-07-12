@@ -1,4 +1,5 @@
 from langchain_core.tools import tool
+from app.rag.pipeline import retrieve_sops
 
 # A fake inventory "database". In a real system this would be a DB query.
 MOCK_INVENTORY = {
@@ -38,3 +39,17 @@ def find_transfer_ward(full_ward: str) -> str:
     if full_ward.lower() == "general":
         return "No obvious overflow ward; general is the usual overflow and it is full."
     return "The 'general' ward is the designated overflow and may have capacity."
+
+@tool
+def search_procedures(query: str) -> str:
+    """Search official hospital Standard Operating Procedures (SOPs) for
+    guidance on a situation.
+    """
+    results = retrieve_sops(query, top_n=2)
+    if not results:
+        return "No relevant SOP found."
+
+    lines = []
+    for r in results:
+        lines.append(f"[{r['code']}] {r['text']}")
+    return "\n\n".join(lines)

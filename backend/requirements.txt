@@ -9,3 +9,5 @@ langchain-groq
 pinecone
 sentence-transformers
 pinecone-text
+langgraph-checkpoint-postgres
+psycopg[binary]
