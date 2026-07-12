@@ -6,3 +6,4 @@ websockets
 langgraph
 langchain
 langchain-groq
+pinecone
