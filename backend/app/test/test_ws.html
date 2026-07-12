@@ -2,16 +2,40 @@
 <html>
 
 <body>
-    <h3>Telemetry stream</h3>
+    <h3>MedOps stream</h3>
+    <button onclick="analyse()">Analyse Now</button>
     <pre id="log"></pre>
     <script>
         const ws = new WebSocket("ws://127.0.0.1:8000/ws/telemetry");
-        ws.onmessage = (event) => {
+        let lastThreadId = null;
+
+        function log(msg) {
             document.getElementById("log").textContent =
-                event.data + "\n" + document.getElementById("log").textContent;
+                msg + "\n" + document.getElementById("log").textContent;
+        }
+
+        ws.onmessage = (event) => {
+            const msg = JSON.parse(event.data);
+            if (msg.type === "telemetry") {
+                log("TELEMETRY pressure=" + msg.data.hospital_pressure);
+            } else if (msg.type === "analysis_started") {
+                log(">>> ANALYSIS STARTED (" + msg.reason + ")");
+            } else if (msg.type === "analysis_result") {
+                lastThreadId = msg.data.thread_id;
+                log("ANALYSIS RESULT: risk=" + msg.data.risk_level +
+                    " awaiting=" + msg.data.awaiting_approval +
+                    " committed=" + msg.data.committed);
+                if (msg.data.awaiting_approval) {
+                    if (confirm("Approve the plan?")) {
+                        ws.send(JSON.stringify({ action: "approve", thread_id: lastThreadId }));
+                    }
+                }
+            }
         };
-        ws.onopen = () => console.log("connected");
-        ws.onclose = () => console.log("closed");
+
+        function analyse() {
+            ws.send(JSON.stringify({ action: "analyse" }));
+        }
     </script>
 </body>
 
