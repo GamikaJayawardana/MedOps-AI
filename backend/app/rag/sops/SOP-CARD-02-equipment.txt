@@ -1,0 +1,1 @@
+Cardiac Monitor Allocation. Every cardiology patient classified as high acuity must be assigned a continuous cardiac monitor. If monitors are exhausted, escalate to the bed manager to prioritise by acuity score.

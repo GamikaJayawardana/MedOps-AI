@@ -1,0 +1,1 @@
+Ventilator Shortage Response. If available ventilators drop below three units, notify the on-call respiratory consultant immediately and initiate the regional equipment-sharing agreement to source additional units from partner hospitals.

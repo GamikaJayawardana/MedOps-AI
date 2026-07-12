@@ -1,0 +1,1 @@
+Respiratory Ward Overflow Protocol 4B. When respiratory ward occupancy exceeds 90 percent, activate overflow to the general ward. Prioritise stable patients for transfer. Ensure at least two ventilators remain reserved for incoming critical cases.

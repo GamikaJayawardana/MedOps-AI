@@ -1,0 +1,1 @@
+Bed Shortage Escalation Ladder. Level 1 is internal reallocation. Level 2 is activating the overflow ward. Level 3 is diverting incoming ambulances to partner hospitals. Escalate one level at a time and log each decision.
