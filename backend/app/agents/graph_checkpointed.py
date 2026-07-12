@@ -1,6 +1,6 @@
-from langgraph.checkpoint.postgres import PostgresSaver
+from langgraph.checkpoint.postgres import PostgresSaver  # noqa: F401
 
-from app.config import settings
+from app.config import settings  # noqa: F401
 from app.agents.graph_state import MedOpsState
 from app.agents.graph import (
     triage_node,

@@ -16,3 +16,4 @@ class MedOpsState(TypedDict):
     resource_recommendation: str
     shift_plan: Optional[ShiftPlan]
     compliance_verdict: Optional[ComplianceVerdict]
+    committed: bool   
