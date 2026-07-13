@@ -1,18 +1,50 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <style>
+        body {
+            font-family: monospace;
+            background: #111;
+            color: #0f0;
+            padding: 20px;
+        }
+
+        #status {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        pre {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
 <body>
-    <h3>MedOps stream</h3>
+    <div id="status">Connecting…</div>
     <button onclick="analyse()">Analyse Now</button>
     <pre id="log"></pre>
     <script>
-        const ws = new WebSocket("ws://127.0.0.1:8000/ws/telemetry");
+        const statusEl = document.getElementById("status");
+        const logEl = document.getElementById("log");
         let lastThreadId = null;
 
         function log(msg) {
-            document.getElementById("log").textContent =
-                msg + "\n" + document.getElementById("log").textContent;
+            logEl.textContent = msg + "\n" + logEl.textContent;
         }
+
+        const ws = new WebSocket("ws://127.0.0.1:8000/ws/telemetry");
+
+        ws.onopen = () => { statusEl.textContent = "✅ Connected to backend"; };
+        ws.onerror = () => { statusEl.textContent = "❌ Connection ERROR — is the backend running on port 8000?"; };
+        ws.onclose = () => { statusEl.textContent = "🔌 Connection closed"; };
 
         ws.onmessage = (event) => {
             const msg = JSON.parse(event.data);
@@ -33,9 +65,7 @@
             }
         };
 
-        function analyse() {
-            ws.send(JSON.stringify({ action: "analyse" }));
-        }
+        function analyse() { ws.send(JSON.stringify({ action: "analyse" })); }
     </script>
 </body>
 
