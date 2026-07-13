@@ -76,16 +76,10 @@ needle) — the calm base makes that read instantly.
 
 ## Architecture
 
-```
-┌──────────────────────────┐         WebSocket          ┌──────────────────────────┐
-│  Next.js 16 / React 19    │  ws://…/ws/telemetry       │  FastAPI backend          │
-│  (frontend/)              │ ◀───── telemetry ───────── │  (backend/)               │
-│                           │        analysis_result     │                           │
-│  useTelemetry() hook      │ ────── analyse ──────────▶ │  HospitalSimulator        │
-│  gauge · chart · wards    │        approve             │  LangGraph agent graph    │
-│  approval modal (HITL)    │                            │  triage→resource→compliance│
-└──────────────────────────┘                            └──────────────────────────┘
-```
+The complete system — browser client, the single two-way WebSocket, the FastAPI
+transport, the LangGraph multi-agent graph, and the data / model / external layer:
+
+![Complete system architecture](docs/screenshots/architecture-complete.png)
 
 The socket is **two-way**:
 
@@ -103,6 +97,14 @@ The socket is **two-way**:
 |-----------|----------------------------|---------------------------------|
 | `analyse` | —                          | run a manual analysis           |
 | `approve` | `thread_id`                | resume a paused plan and commit |
+
+### AI multi-agent graph (LangGraph, human-in-the-loop)
+
+A reading flows through four specialist agents behind a HIGH-risk gate; the graph
+then pauses at `interrupt_before → Commit` until a human approves, and resumes
+from the Postgres checkpoint to commit.
+
+![Multi-agent graph](docs/screenshots/architecture-agent-graph.png)
 
 ---
 
