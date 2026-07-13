@@ -104,8 +104,6 @@ A reading flows through four specialist agents behind a HIGH-risk gate; the grap
 then pauses at `interrupt_before → Commit` until a human approves, and resumes
 from the Postgres checkpoint to commit.
 
-![Multi-agent graph](docs/screenshots/architecture-agent-graph.png)
-
 ---
 
 ## Tech stack
